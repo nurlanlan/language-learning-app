@@ -1,15 +1,21 @@
 package com.coeus.language_learning_service.service;
 
 import com.coeus.language_learning_service.domain.entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.coeus.language_learning_service.domain.repository.UserRepository;
 import com.coeus.language_learning_service.model.dto.UserDTO;
 import com.coeus.language_learning_service.model.mapper.UserMapper;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Service
 public class UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
@@ -57,4 +63,15 @@ public class UserService {
         user = userRepository.save(user);
         return userMapper.toDTO(user);
     }
+
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                new ArrayList<>() // Rollar və hüquqlar (istəsəniz əlavə edə bilərsiniz)
+        );
+    }
+
 }
