@@ -35,3 +35,18 @@ out/
 
 ### VS Code ###
 .vscode/
+# IntelliJ IDEA dosyaları
+.idea/
+
+# Gradle dosyaları
+.gradle/
+build.gradle
+settings.gradle
+gradlew
+gradlew.bat
+
+# Log dosyaları
+*.log
+
+# Diğer geçici dosyalar
+*.class
