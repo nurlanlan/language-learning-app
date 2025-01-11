@@ -5,8 +5,7 @@
 .gradle/
 build.gradle
 settings.gradle
-gradlew
-gradlew.bat
+
 
 # Log dosyaları
 *.log
