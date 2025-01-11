@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@NoArgsConstructor
+
 public class UserController {
     UserService userService;
     @PostMapping("/register")

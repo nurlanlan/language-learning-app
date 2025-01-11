@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@NoArgsConstructor
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
