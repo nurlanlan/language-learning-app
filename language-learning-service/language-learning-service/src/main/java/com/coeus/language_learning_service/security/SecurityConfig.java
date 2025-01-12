@@ -17,31 +17,28 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    // Şifrələmə mexanizmi üçün PasswordEncoder bean-i
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // AuthenticationManager bean-i
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // Security Filter Chain konfiqurasiyası
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // CSRF müdafiəsini deaktiv edirik (lazım olsa aktiv edin)
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/register").permitAll() // Açıq endpointlər
+                        .requestMatchers("/auth/**", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> httpBasic.disable()) // HTTP Basic autentifikasiyanı deaktiv edirik
-                .formLogin(formLogin -> formLogin.disable()); // Default form-login deaktivdir
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(formLogin -> formLogin.disable());
 
         return http.build();
     }
