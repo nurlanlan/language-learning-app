@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF müdafiəsini deaktiv edirik (lazım olsa aktiv edin)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/register").permitAll() // Açıq endpointlər
-                        .anyRequest().permitAll() // Qalan bütün sorğular üçün autentifikasiya tələb olunur
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // HTTP Basic autentifikasiyanı deaktiv edirik
                 .formLogin(formLogin -> formLogin.disable()); // Default form-login deaktivdir
