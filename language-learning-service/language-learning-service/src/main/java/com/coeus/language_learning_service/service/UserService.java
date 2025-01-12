@@ -17,9 +17,9 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-    private UserRepository userRepository;
-    private UserMapper userMapper;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private  UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     // registeration
     public UserDTO registerUser(UserDTO userDTO) {
