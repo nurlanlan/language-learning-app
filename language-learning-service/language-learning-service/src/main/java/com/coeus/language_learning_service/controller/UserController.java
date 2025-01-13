@@ -2,7 +2,6 @@ package com.coeus.language_learning_service.controller;
 
 import com.coeus.language_learning_service.model.dto.UserDTO;
 import com.coeus.language_learning_service.service.UserService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-
+@RequestMapping("/api/v1/users")
 public class UserController {
    private final UserService userService;
     @PostMapping("/register")

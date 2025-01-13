@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private  UserMapper userMapper;
+    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     // registeration
