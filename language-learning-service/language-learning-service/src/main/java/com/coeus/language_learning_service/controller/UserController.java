@@ -11,22 +11,26 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
-   private final UserService userService;
-    @PostMapping
+    private final UserService userService;
+
+    @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
         UserDTO createdUser = userService.registerUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-       String jwtToken = userService.loginUser(email, password);
-       return ResponseEntity.ok(jwtToken);
+        String jwtToken = userService.loginUser(email, password);
+        return ResponseEntity.ok(jwtToken);
     }
+
     @GetMapping("/profile/{userID}")
     public ResponseEntity<UserDTO> getProfile(@PathVariable Long userID) {
         UserDTO userDTO = userService.getProfile(userID);
         return ResponseEntity.ok(userDTO);
     }
+
     @PutMapping("/profile/{userID}")
     public ResponseEntity<UserDTO> updateProfile(@PathVariable Long userID, @RequestBody UserDTO userDTO) {
         UserDTO updatedUser = userService.updateProfile(userID, userDTO);
