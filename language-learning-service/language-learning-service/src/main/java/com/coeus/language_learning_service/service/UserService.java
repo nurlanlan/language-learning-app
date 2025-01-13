@@ -6,7 +6,6 @@ import com.coeus.language_learning_service.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     // UserDTO-dan User Entity-ə çevrilmə
     private User toEntity(UserDTO userDTO) {
@@ -39,36 +37,35 @@ public class UserService {
         return userDTO;
     }
 
-    // registeration
+    // Registration
     public UserDTO registerUser(UserDTO userDTO) {
         if (userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
             throw new RuntimeException("Email already in use");
         }
         User user = toEntity(userDTO);
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Şifrəni kodlayır
         user = userRepository.save(user);
         return toDTO(user);
     }
 
-    // login
+    // Login
     public String loginUser(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Wrong credentials");
         }
         // todo: JWT token yaratmaq
         return "JWT token";
     }
 
-    // profile details
+    // Profile details
     public UserDTO getProfile(Long userID) {
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return toDTO(user);
     }
 
-    // change profile info
+    // Change profile info
     public UserDTO updateProfile(Long userID, UserDTO userDTO) {
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -77,13 +74,13 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setAge(userDTO.getAge());
         if (userDTO.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            user.setPassword(userDTO.getPassword());
         }
         user = userRepository.save(user);
         return toDTO(user);
     }
 
-    // load user by username
+    // Load user by username
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
