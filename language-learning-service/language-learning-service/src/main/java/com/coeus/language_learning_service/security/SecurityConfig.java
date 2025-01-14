@@ -17,6 +17,10 @@ public class SecurityConfig {
 
     private final PasswordEncoder passwordEncoder;
 
+    public SecurityConfig(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
