@@ -4,7 +4,9 @@ import com.coeus.language_learning_service.domain.entity.User;
 import com.coeus.language_learning_service.domain.repository.UserRepository;
 import com.coeus.language_learning_service.model.dto.UserDTO;
 import com.coeus.language_learning_service.model.mapper.UserMapper;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
