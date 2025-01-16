@@ -20,7 +20,8 @@ public class SecurityConfig {
     public SecurityConfig(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-
+ //todo
+    //security class will be update
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
