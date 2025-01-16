@@ -21,7 +21,7 @@ public class SecurityConfig {
         this.passwordEncoder = passwordEncoder;
     }
  //todo
-// encoder will be configurate
+// encoder will be configurat
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
